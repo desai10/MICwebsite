@@ -1,0 +1,134 @@
+<section class="sec">
+<div style="transition: all 0.25s ease;" ng-class="{'cbp-spmenu-push-torightNav' : leftOpen, 'cbp-spmenu-push-toleftNav' : rightOpen}" class="navbar navbar-default navbar-fixed-top">
+		<div style="margin-top: 25px; padding-bottom: 20px" class="container-fluid">
+			<div class="navbar-header" style="padding-left: 15px;">
+				<button class="navbar-toggle" type="button" ng-click="toggleCollapsibleMenu()">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a ui-sref="home" class="navbar-brand topb">&nbspVIT Vellore</a>
+			</div>
+			<nav style="font-size: 15px;" class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
+
+				<ul class="nav navbar-nav navbar-right sec" ng-hide="authentication.user">
+				<li  ui-sref-active="active">
+					<a ui-sref="authentication.signup">Sign Up</a>
+				</li>
+				<li class="divider-vertical"></li>
+				<li  ui-sref-active="active">
+					<a ui-sref="authentication.signin">Sign In</a>
+				</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right sec" ng-show="authentication.user">
+					<li ui-sref-active="active">
+						<a ui-sref="settings.profile">
+							<span ng-bind="authentication.user.displayName"></span>
+						</a>
+						<li>
+							<a href="/api/auth/signout" target="_self"><span class="glyphicon glyphicon-log-out"></span></a>
+						</li>
+					</li>				
+				</ul>
+				<ul class="nav navbar-nav navbar-right sec" ng-if="menu.shouldRender(authentication.user);">
+				<li  ng-repeat="item in menu.items | orderBy: 'position'" ng-if="item.shouldRender(authentication.user);" ng-switch="item.type" ng-class="{ active: $state.includes(item.state), dropdown: item.type === 'dropdown' }" class="{{item.class}}" 
+				dropdown="item.type === 'dropdown'">
+					<a ng-switch-when="dropdown"  class="dropdown-toggle" dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
+					<ul ng-switch-when="dropdown" class="dropdown-menu">
+					<li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(authentication.user);" ui-sref-active="active">
+						<a ui-sref="{{subitem.state}}" ng-bind="subitem.title"></a>
+					</li>
+					</ul>
+					<a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
+				</li>
+				</ul>				
+			</nav>
+		</div>
+	</div>
+	<div class="cbp-spmenu-push" ng-class="{'cbp-spmenu-push-toright' : leftOpen, 'cbp-spmenu-push-toleft' : rightOpen, 'ovh' : leftOpen, 'ovh' : rightOpen}" >
+	<div class="container">
+		<!-- Top Navigation -->			
+		  <div class="">
+			<h2 class="heading"></h2>
+		  </div> 
+			<div class="grid2">
+				<div class="row">
+					<div class="col-md-6 col-xs-12">
+						<figure class="effect-honey">
+							<img src="modules/core/client/img/1.jpg" alt="img25"/>
+							<figcaption ng-class="{'active' : isl1Active }"  ng-click="isl1Disabled || left('kartheek','l1');">
+								<h2>Kartheek Javvaji<span></span>&nbsp&nbsp<i>Web</i>&nbsp<i>Designer</i></h2>
+								<p class="icon-links">
+									<a href="#"><span style="font-size:20px; float: right;" class="glyphicon glyphicon-envelope glink"></span></a>
+								</p>
+							</figcaption>			
+						</figure>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<figure class="effect-honey">
+							<img src="modules/core/client/img/7.jpg" alt="img26"/>
+							<figcaption ng-class="{'active' : isr1Active }" ng-click="isr1Disabled || right('kavya','r1');">
+								<h2>Kavya Arja<span></span>&nbsp&nbsp<i>UX</i>&nbsp<i>Designer</i></h2>
+								<p class="icon-links">
+									<a href="#"><span style="font-size:20px; float: right;" class="glyphicon glyphicon-envelope glink"></span></a>
+								</p>
+							</figcaption>			
+						</figure>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<figure class="effect-honey">
+							<img src="modules/core/client/img/10.jpg" alt="img25"/>
+							<figcaption ng-class="{'active' : isl2Active }" ng-click="isl2Disabled || left('balaji','l2');">
+								<h2>John doe<span></span>&nbsp&nbsp<i>Human</i>&nbsp<i>Resources</i></h2>
+								<p class="icon-links">
+									<a href="#"><span style="font-size:20px; float: right;" class="glyphicon glyphicon-envelope glink"></span></a>
+								</p>
+							</figcaption>			
+						</figure>
+					</div>
+					<div class="col-md-6 col-xs-12">
+						<figure class="effect-honey">
+							<img src="modules/core/client/img/27.jpg" alt="img26"/>
+							<figcaption ng-class="{'active' : isr2Active }" ng-click="isr2Disabled || right('jane','r2');">
+								<h2>Jane doe<span></span>&nbsp&nbsp<i>Mobile</i>&nbsp<i>Dev</i></h2>
+								<p class="icon-links">
+									<a href="mailto:webmaster@example.com"><span style="font-size:20px; float: right;" class="glyphicon glyphicon-envelope glink"></span></a>
+								</p>
+							</figcaption>			
+						</figure>
+					</div>
+				</div>
+				<br>
+				<br>
+				<hr>
+				<br>
+		</div>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" ng-class="{'cbp-spmenu-open' : leftOpen}" id="cbp-spmenu-s1">
+			<h3>profile<span class="glyphicon glyphicon-chevron-right" style="font-size:smaller" ng-click="back()"></span></h3>
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			<hr>
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			<hr>
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+		</nav>
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" ng-class="{'cbp-spmenu-open' : rightOpen}" id="cbp-spmenu-s2">
+			<h3><span class="glyphicon glyphicon-chevron-left" style="font-size:smaller" ng-click="back()"></span>profile</h3>
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			<hr>
+			<h2>Division</h2>
+			<p>{{profileDesc}}</p>
+			<hr>
+		</nav>
+	</div>		
+</section>

@@ -1,0 +1,87 @@
+<section class="container">
+  <div class="">
+    <h2 class="heading">GALLERY</h2>
+  </div>
+  <div ng-if="!(vm.galleries.length > 0)">
+    <style type="text/css">
+       .spinner {
+        width: 80px;
+        height: 80px;
+        margin: 175px auto;
+        background-color: #9c27b0;
+        margin-bottom: 400px;
+        border-radius: 100%;  
+        -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+        animation: sk-scaleout 1.0s infinite ease-in-out;
+      }
+
+      @-webkit-keyframes sk-scaleout {
+        0% { -webkit-transform: scale(0) }
+        100% {
+          -webkit-transform: scale(1.0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sk-scaleout {
+        0% { 
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        } 100% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+          opacity: 0;
+        }
+      }
+    </style>
+    <div class="spinner"></div>
+  </div>
+  <div class="list-group" ng-show="vm.authentication.user.roles.indexOf('admin')>-1">
+    <a data-ng-repeat="gallery in vm.galleries"
+       data-ui-sref="galleries.view({ galleryId: gallery._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        <div>
+          imageTitle : {{gallery.imageTitle}}
+          <br>
+          imageSource : {{gallery.imageSource}}
+          <br>
+          eventLink : {{gallery.eventLink}}
+          <br>
+          imageDescription : {{gallery.imageDescription}}
+          <br>
+          <img ng-src="{{gallery.imageSource}}" width="300">
+        </div>
+        Posted on
+        <span data-ng-bind="gallery.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="gallery.user" data-ng-bind="gallery.user.displayName"></span>
+        <span data-ng-if="!gallery.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="gallery.name"></h4>
+    </a>
+  </div>
+  <div class="grid">
+    <div class="row">
+      <div data-ng-repeat="gallery in vm.galleries"  class="col-md-6 col-xs-12">
+        <figure class="effect-zoe">
+          <img src="{{gallery.imageSource}}" alt="{{gallery.imageTitle}}"/>
+          <figcaption>
+            <h4><span>{{gallery.imageTitle}}</span></h4>
+            <p class="icon-links">
+              <a target="_blank" href="{{gallery.imageSource}}"><span style="font-size:20px" class="glyphicon glyphicon-zoom-in"></span></a>
+              <a data-ui-sref="events.list"><span style="font-size:20px" class="glyphicon glyphicon-list-alt"></span></a>
+            </p>
+            <p class="description">{{gallery.imageDescription}}</p>
+          </figcaption>			
+        </figure>
+      </div>
+    </div>
+  </div>
+
+    
+      
+  <div class="alert alert-warning text-center" data-ng-if="vm.galleries.$resolved && !vm.galleries.length">
+    No Galleries yet, why don't you <a data-ui-sref="galleries.create">create one</a>?
+  </div>
+</section>

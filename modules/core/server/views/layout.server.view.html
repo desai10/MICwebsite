@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <base href="/">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="fragment" content="!">
+
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Facebook META -->
+  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <meta property="og:site_name" content="{{title}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="{{logo}}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter META -->
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:url" content="{{url}}">
+  <meta name="twitter:image" content="{{logo}}">
+  
+  <!-- Fav Icon -->
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,800,300' rel='stylesheet' type='text/css'>
+  <!-- Application CSS Files -->
+  {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+</head>
+
+<body>
+  <div class="m-app-loading" ng-animate-children>
+
+      <!--
+          HACKY CODE WARNING: I'm putting Style block inside directive so that it
+          will be removed from the DOM when we remove the directive container.
+      -->
+      <style type="text/css">
+          #loader-wrapper {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              z-index: 1000;
+              background-color: #fff;
+          }
+          #loader {
+              display: block;
+              position: relative;
+              left: 50%;
+              top: 50%;
+              width: 150px;
+              height: 150px;
+              margin: -75px 0 0 -75px;
+              border-radius: 50%;
+              border: 3px solid transparent;
+              border-top-color: #3498db;
+
+              -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+              animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+
+              z-index: 1001;
+          }
+
+              #loader:before {
+                  content: "";
+                  position: absolute;
+                  top: 5px;
+                  left: 5px;
+                  right: 5px;
+                  bottom: 5px;
+                  border-radius: 50%;
+                  border: 3px solid transparent;
+                  border-top-color: #e74c3c;
+
+                  -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+                  animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+              }
+
+              #loader:after {
+                  content: "";
+                  position: absolute;
+                  top: 15px;
+                  left: 15px;
+                  right: 15px;
+                  bottom: 15px;
+                  border-radius: 50%;
+                  border: 3px solid transparent;
+                  border-top-color: #f9c922;
+
+                  -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+                    animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+              }
+
+              @-webkit-keyframes spin {
+                  0%   { 
+                      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: rotate(0deg);  /* IE 9 */
+                      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+                  }
+                  100% {
+                      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: rotate(360deg);  /* IE 9 */
+                      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+                  }
+              }
+              @keyframes spin {
+                  0%   { 
+                      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: rotate(0deg);  /* IE 9 */
+                      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+                  }
+                  100% {
+                      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: rotate(360deg);  /* IE 9 */
+                      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+                  }
+              }
+
+              #loader-wrapper .loader-section {
+                  position: fixed;
+                  top: 0;
+                  width: 51%;
+                  height: 100%;
+                  background: #fff;
+                  z-index: 1000;
+                  -webkit-transform: translateX(0);  /* Chrome, Opera 15+, Safari 3.1+ */
+                  -ms-transform: translateX(0);  /* IE 9 */
+                  transform: translateX(0);  /* Firefox 16+, IE 10+, Opera */
+              }
+
+              #loader-wrapper .loader-section.section-left {
+                  left: 0;
+              }
+
+              #loader-wrapper .loader-section.section-right {
+                  right: 0;
+              }
+
+              /* Loaded */
+              .loaded #loader-wrapper .loader-section.section-left {
+                  -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: translateX(-100%);  /* IE 9 */
+                          transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+                  -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+                          transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+              }
+
+              .loaded #loader-wrapper .loader-section.section-right {
+                  -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: translateX(100%);  /* IE 9 */
+                          transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+
+                -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);  
+                        transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+              }
+              
+              .loaded #loader {
+                  opacity: 0;
+                  -webkit-transition: all 0.3s ease-out;  
+                          transition: all 0.3s ease-out;
+              }
+              .loaded #loader-wrapper {
+                  visibility: hidden;
+
+                  -webkit-transform: translateY(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+                      -ms-transform: translateY(-100%);  /* IE 9 */
+                          transform: translateY(-100%);  /* Firefox 16+, IE 10+, Opera */
+
+                  -webkit-transition: all 0.3s 1s ease-out;  
+                          transition: all 0.3s 1s ease-out;
+              }
+              
+              /* JavaScript Turned Off */
+              .no-js #loader-wrapper {
+                  display: none;
+              }
+              .no-js h1 {
+                  color: #fff;
+              }
+
+              #content {
+                  margin: 0 auto;
+                  padding-bottom: 50px;
+                  width: 80%;
+                  max-width: 978px;
+              }
+      </style>
+
+
+      <!-- BEGIN: Actual animated container. -->
+      <div class="animated-container">
+
+          <div class="messaging">
+
+             <div id="loader-wrapper">
+                <div id="loader"></div>
+
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+
+              </div>
+
+          </div>
+
+      </div>
+      <!-- END: Actual animated container. -->
+
+  </div>
+  <div class="ng-cloak">
+    <header ng-include="'/modules/core/client/views/header.client.view.html'"></header>
+    <section class="content">
+        {% block content %}{% endblock %}
+    </section>
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+          <h5>Microsoft Innovation Center | <span>VIT</span></h5>
+
+          <p class="footer-links">
+            <a href="#">Home</a>
+            ·
+            <a href="#">Events</a>
+            ·
+            <a href="#">Gallery</a>
+            ·
+            <a href="#">Team</a>
+            ·
+            <a href="#">Contact</a>
+          </p>
+
+          <!--<p class="footer-company-name">MIC VIT</p>-->
+        </div>
+
+        <div class="footer-center">
+
+          <div>
+            <i class="fa fa-map-marker"></i>
+            <p><span>G 19 SJT</span> VIT, Vellore</p>
+          </div>
+
+          <div>
+            <i class="fa fa-phone"></i>
+            <p>+91 9999988888</p>
+          </div>
+
+          <div>
+            <i class="fa fa-envelope"></i>
+            <p><a href="mailto:support@micvit.com">micvit@live.com</a></p>
+          </div>
+
+        </div>
+
+        <div class="footer-right">
+
+          <p class="footer-company-about">
+            <span>About MIC | VIT</span>
+            We Dream | We Create | We Innovate  
+          </p>
+
+          <div class="footer-icons">
+
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+
+          </div>
+
+        </div>
+
+      </footer>
+
+    <!--Embedding The User Object-->    
+    
+    <script type="text/javascript">
+      var user = {{ user | json | safe }};
+    </script>
+
+    <!--Load The Socket.io File-->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <!--Application JavaScript Files-->
+    {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+
+    {% if livereload %}
+    <!--Livereload script rendered -->
+    <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.gallery._id ? 'Edit Gallery' : 'New Gallery'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.galleryForm" class="form-horizontal" ng-submit="vm.save(vm.form.galleryForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imageTitle">imageTitle</label>
+          <input name="imageTitle" type="text" ng-model="vm.gallery.imageTitle" id="imageTitle" class="form-control" placeholder="imageTitle" required>
+          <div ng-messages="vm.form.galleryForm.imageTitle.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">imageTitle is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imageSource">imageSource</label>
+          <input name="imageSource" type="text" ng-model="vm.gallery.imageSource" id="imageSource" class="form-control" placeholder="imageSource" required>
+          <div ng-messages="vm.form.galleryForm.imageSource.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">imageSource is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="eventLink">eventLink</label>
+          <input name="eventLink" type="text" ng-model="vm.gallery.eventLink" id="eventLink" class="form-control" placeholder="eventLink" >
+          <div ng-messages="vm.form.galleryForm.eventLink.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">eventLink is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imageDescription">imageDescription</label>
+          <input name="imageDescription" type="text" ng-model="vm.gallery.imageDescription" id="imageDescription" class="form-control" placeholder="imageDescription" required>
+          <div ng-messages="vm.form.galleryForm.imageDescription.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">imageDescription is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.gallery._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

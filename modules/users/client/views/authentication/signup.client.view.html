@@ -1,0 +1,92 @@
+<div ng-controller="AuthenticationController">
+  <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-6 login-form-bg">
+    <h3 class="text-center">Sign up using your email</h3>
+    <form name="userForm" ng-submit="signup(userForm.$valid)" class="signin" novalidate autocomplete="off">
+      <fieldset>
+        <div class="form-group">
+          <div ng-show="error" class="text-center text-danger">
+            <div class="alert alert-danger" role="alert">
+              <span ng-bind="error"></span>
+            </div>
+          </div>          
+        </div>        
+        <div class="form-group" show-errors>
+          <div class="input-group input-group-lg" show-errors>
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-plus"></i>
+            </span>
+            <input type="text" id="firstName" name="firstName" class="form-control" ng-model="credentials.firstName" placeholder="first name" required>
+          </div>
+          <div ng-messages="userForm.firstName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">First name is required.</p>
+          </div>
+        </div>
+        
+        <div class="form-group" show-errors>
+          <div class="input-group input-group-lg" show-errors>
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-plus"></i>
+            </span>
+            <input type="text" id="lastName" name="lastName" class="form-control" ng-model="credentials.lastName" placeholder="last name" required>
+          </div>
+          <div ng-messages="userForm.lastName.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Last name is required.</p>
+          </div>
+        </div>
+        
+        <div class="form-group" show-errors>
+          <div class="input-group input-group-lg" show-errors>
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-envelope"></i>
+            </span>
+            <input type="text" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="email" required>
+          </div>
+          <div ng-messages="userForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Email address is required.</p>
+            <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
+          </div>
+        </div>
+        
+        <div class="form-group" show-errors>
+          <div class="input-group input-group-lg" show-errors>
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="username" required>
+          </div>
+          <div ng-messages="userForm.username.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Username is required.</p>
+          </div>
+        </div>
+        
+        <div class="form-group" show-errors>
+          <div class="input-group input-group-lg" show-errors>
+            <span class="input-group-addon">
+              <i class="glyphicon glyphicon-asterisk"></i>
+            </span>
+            <input type="password" id="password" name="password" class="form-control" ng-model="credentials.password" placeholder="password"  popover="{{popoverMsg}}" popover-trigger="focus" password-validator required>
+          </div>
+          <div ng-messages="userForm.password.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Password is required.</p>
+            <div ng-repeat="passwordError in passwordErrors">
+              <p class="help-block error-text" ng-show="userForm.password.$error.requirements">{{passwordError}}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group" ng-show="!userForm.password.$error.required">
+          <label>Password Requirements</label>
+          <progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></progressbar>
+        </div>
+        <br>
+        <div class="text-center form-group">
+          <button type="submit" class="btn btn-info btn-block btn-lg">Sign up</button>
+          <div class="text-right">
+            &nbsp; or&nbsp;
+            <a ui-sref="authentication.signin" class="show-signup" style="color:#9c27b0;">Sign in</a>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

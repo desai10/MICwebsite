@@ -1,0 +1,45 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.event._id ? 'Edit Event' : 'New Event'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.eventForm" class="form-horizontal" ng-submit="vm.save(vm.form.eventForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="eventTitle">eventTitle</label>
+          <input name="eventTitle" type="text" ng-model="vm.event.eventTitle" id="eventTitle" class="form-control" placeholder="eventTitle" required>
+          <div ng-messages="vm.form.eventForm.eventTitle.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">eventTitle is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="shortDescription">shortDescription</label>
+          <input name="shortDescription" type="text" ng-model="vm.event.shortDescription" id="shortDescription" class="form-control" placeholder="shortDescription" required>
+          <div ng-messages="vm.form.eventForm.shortDescription.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">shortDescription is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imageSource">imageSource</label>
+          <input name="imageSource" type="text" ng-model="vm.event.imageSource" id="imageSource" class="form-control" placeholder="imageSource" required>
+          <div ng-messages="vm.form.eventForm.imageSource.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">eventTitle is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="fullDescription">fullDescription</label>
+          <input name="fullDescription" type="text" ng-model="vm.event.fullDescription" id="fullDescription" class="form-control" placeholder="fullDescription" required>
+          <div ng-messages="vm.form.eventForm.fullDescription.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">fullDescription is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.event._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+<section class="container">
+  <div class="">
+    <h2 class="heading">EVENTS</h2>
+  </div> 
+    <div ng-if="!(vm.events.length > 0)">
+    <style type="text/css">
+      .spinner {
+        width: 80px;
+        height: 80px;
+        margin: 175px auto;
+        background-color: #9c27b0;
+        margin-bottom: 400px;
+        border-radius: 100%;  
+        -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+        animation: sk-scaleout 1.0s infinite ease-in-out;
+      }
+
+      @-webkit-keyframes sk-scaleout {
+        0% { -webkit-transform: scale(0) }
+        100% {
+          -webkit-transform: scale(1.0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes sk-scaleout {
+        0% { 
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        } 100% {
+          -webkit-transform: scale(1.0);
+          transform: scale(1.0);
+          opacity: 0;
+        }
+      }
+    </style>
+    <div class="spinner"></div>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="event in vm.events"
+       data-ui-sref="events.view({ eventId: event._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        <div>
+          Event title : {{event.eventTitle}}
+          <br>
+          shortDescription : {{event.shortDescription}}
+          <br>
+          imageSource : {{event.imageSource}}
+          <br>
+          fullDescription : {{event.fullDescription}}
+          <br>
+          <img ng-src="{{event.imageSource}}" width="300">
+        </div>
+        Posted on
+        <span data-ng-bind="event.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="event.user" data-ng-bind="event.user.displayName"></span>
+        <span data-ng-if="!event.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="event.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.events.$resolved && !vm.events.length">
+    No Events yet, why don't you <a data-ui-sref="events.create">create one</a>?
+  </div>
+</section>
